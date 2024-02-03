@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+{% extends 'store/main.html' %}
+{% load static %}
+
+<meta charset="UTF-8">
+<meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static '/main.css/' %}">
+
+<title>checkout</title>
+</head>
+<body>
+
+{% block content %}
+<div class="row">
+<div class="col-lg-6">
+    <div class="box-element" id="form-wrapper">
+        <form id="form">
+            <div id="user-info">
+                <div class="form-field">
+                    <p>user information</p>
+                    <input required class="form-control" type="text" name="name" placeholder="name">
+                </div>
+                <div class="form-field">
+                    <input required class="form-control" type="email" name="Email" placeholder="Email">
+                </div>
+
+
+            </div>
+            <div id="shipping-info">
+                <hr>
+                <p>Shipping information</p>
+                <div class="form-field">
+                    <input class="form-control" type="text" name="address" placeholder="address">
+                </div>
+                <div class="form-field">
+                    <input class="form-control" type="text" name="city" placeholder="city">
+                </div>
+                <div class="form-field">
+                    <input class="form-control" type="text" name="State" placeholder="State">
+                </div>
+                <div class="form-field">
+                    <input class="form-control" type="text" name="country " placeholder="zip code">
+                </div>
+                <hr>
+                <input id="form-button" class=" btn btn-success btn-block" type="submit" value="continue" >
+            </div>
+            <br>
+                <div class="hidden" id="payment-info">
+                    <small> payment options</small>
+                    <br>
+                    <select value="pay option">
+                        <option name="pay" id="pay">paypal</option>
+                        <option name="pay" id="kcb">m-pesa</option>
+                        <option value="pay">credit card</option>
+                        <option value="pay"> debit cart</option>
+                    </select>
+
+                </div>
+
+        </form>
+
+    </div>
+
+</div>
+<div class="col-lg-6">
+    <div class="box-element">
+        <a class="btn btn-outline-dark" href="{% url 'cart'%}">Back to Cart</a>
+        <h3>Order Summery</h3>
+        <hr>
+        {% for item in items%}
+                    <div class="cart-row">
+                        <div class="watch" style="flex:2; height:100px; width:100px;"><img src="{{item.product.imageURL}}" alt=""></div>
+                        <div style="flex:2;">{{item.product.name}}</div>
+                        <div style="flex:1">Ksh:{{item.product.price}}</div>
+                        <div style="flex:1">items:{{ item.quantity}}</div>
+
+                </div>
+        {% endfor%}
+            <h5>Items:<strong>{{order.get_cart_items}}</strong></h5>
+            <h5>Total:<strong>Ksh:{{order.get_cart_total|floatformat:2}}</strong> </h5>
+    </div>
+
+</div>
+
+</div>
+{% endblock content %}
+
+</body>
+</html>
